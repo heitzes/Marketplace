@@ -10,25 +10,23 @@ function MyApp({ Component, pageProps }) {
     const [status, setStatus] = useState("");
     const adminWallet = "0x612B9C1860566f0A83F106e893933F86533F6eDe";
 
-    const connectWalletPressed = async () => {
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
-
-        const walletResponse = await connectWallet();
-        setStatus(walletResponse.status);
-        setWallet(walletResponse.address);
-    };
-
     useEffect(async () => {
         const { address, status } = await getCurrentWalletConnected();
-
         setWallet(address);
         setStatus(status);
-
         addWalletListener();
     }, []);
+
+    const connectWalletPressed = async () => {
+        const web3Modal = new Web3Modal();
+        if (!walletAddress) {
+            const connection = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const walletResponse = await connectWallet();
+            setStatus(walletResponse.status);
+            setWallet(walletResponse.address);
+        }
+    };
 
     function addWalletListener() {
         if (window.ethereum) {
@@ -56,7 +54,7 @@ function MyApp({ Component, pageProps }) {
     }
 
     return (
-        <div class="bg-black text-onomablue h-screen">
+        <div className="bg-black text-onomablue">
             <nav className="border-b p-6 flex flex-column justify-between">
                 <section>
                     <p className="text-5xl font-bold text-onoma">OnomaAI Marketplace</p>
@@ -73,9 +71,13 @@ function MyApp({ Component, pageProps }) {
                         <Link href="/dashboard">
                             <a className="mr-6 text-xl font-bold text-onomapurple">My Dashboard</a>
                         </Link>
-                        <Link href="/admin">
-                            <a className="mr-6 text-xl font-bold text-onomapurple">Admin</a>
-                        </Link>
+                        {walletAddress === adminWallet.toLowerCase() ? (
+                            <Link href="/admin">
+                                <a className="mr-6 text-xl font-bold text-onomapurple">Admin</a>
+                            </Link>
+                        ) : (
+                            <span></span>
+                        )}
                     </div>
                 </section>
                 <button
@@ -93,6 +95,9 @@ function MyApp({ Component, pageProps }) {
                 </button>
             </nav>
             <Component {...pageProps} />
+            <div className="border-b p-12 flex flex-column justify-between">
+                © Onoma AI, Inc. All rights reserved.
+            </div>
         </div>
     );
 }

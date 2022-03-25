@@ -51,13 +51,13 @@ export default function Home() {
         setLoadingState("loaded");
     }
     async function buyNft(nft) {
+        console.log("not connected");
         /* needs the user to sign the transaction, so will use Web3Provider and sign it */
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = new ethers.Contract(marketplaceAddress, NFTMarketplace.abi, signer);
-
         /* user will be prompted to pay the asking proces to complete the transaction */
         const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
         const transaction = await contract.createMarketSale(nft.tokenId, {
@@ -68,31 +68,35 @@ export default function Home() {
     }
 
     if (loadingState === "loaded" && !nfts.length)
-        return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
+        return <h1 className="px-20 py-10 text-3xl h-screen">No items in marketplace</h1>;
     return (
-        <div className="flex justify-center">
-            <div className="px-4" style={{ maxWidth: "1600px" }}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+        <div className="flex justify-center" style={{ minHeight: "1000px" }}>
+            <div className="px-4" style={{ maxWidth: "1800px" }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
                     {nfts.map((nft, i) => (
-                        <div key={i} className="border shadow rounded-xl overflow-hidden ">
-                            <img src={nft.image} className="border-b" />
-                            <div className="p-4 border-b">
-                                <p style={{ height: "64px" }} className="text-2xl font-semibold">
+                        <div key={i} className="border shadow rounded-xl overflow-hidden mt-8">
+                            <img
+                                src={nft.image}
+                                style={{ maxHeight: "256px" }}
+                                className="border-b"
+                            />
+                            <div className="p-2 border-b">
+                                <p style={{ height: "32px" }} className="text-xl font-semibold">
                                     {nft.name}
                                 </p>
-                                <div style={{ height: "70px", overflow: "hidden" }}>
-                                    <p className="text-gray-400">{nft.description}</p>
+                                <div style={{ height: "30px", overflow: "hidden" }}>
+                                    <p className="text-sm mt-2">{nft.description}</p>
                                 </div>
                             </div>
-                            <div className="p-4 bg-black flex flex-col justify-center mt">
-                                <p className="text-2xl font-bold text-white text-center	">
+                            <div className="p-1 bg-black flex flex-row justify-around mt p-5">
+                                <p className="text-white text-base font-bold self-center">
                                     {nft.price} ETH
                                 </p>
                                 <button
-                                    className="bg-onomapurple text-white font-bold rounded p-3 mt-12 w-1/2 self-center"
+                                    className="text-onomapurple text-base font-bold rounded"
                                     onClick={() => buyNft(nft)}
                                 >
-                                    Buy
+                                    Buy now
                                 </button>
                             </div>
                         </div>

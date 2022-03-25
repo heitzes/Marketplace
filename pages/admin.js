@@ -6,5 +6,5 @@ import { marketplaceAddress } from "../config";
 import NFTMarketplace from "../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
 
 export default function Admin() {
-    return <div>Log </div>;
+    return <div className="h-screen">Log </div>;
 }
