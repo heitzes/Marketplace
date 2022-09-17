@@ -1,0 +1,51 @@
+{
+    "name": "nft-marketplace",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start -p 8000",
+        "lint": "next lint",
+        "app": "nodemon app"
+    },
+    "dependencies": {
+        "@nomiclabs/hardhat-ethers": "^2.0.5",
+        "@nomiclabs/hardhat-waffle": "^2.0.3",
+        "@openzeppelin/contracts": "^3.1.0-solc-0.7",
+        "axios": "^0.26.1",
+        "body-parser": "^1.20.0",
+        "chai": "^4.3.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.0",
+        "ethereum-waffle": "^3.4.0",
+        "ethers": "^5.6.0",
+        "etherscan-api": "^10.0.5",
+        "express": "^4.17.3",
+        "hardhat": "^2.9.1",
+        "http-proxy-middleware": "^2.0.4",
+        "ipfs-http-client": "^56.0.1",
+        "morgan": "^1.10.0",
+        "mysql2": "^2.3.3",
+        "next": "12.1.0",
+        "next-http-proxy-middleware": "^1.2.4",
+        "path": "^0.12.7",
+        "pg": "^8.7.3",
+        "pg-hstore": "^2.3.4",
+        "postgresql": "^0.0.1",
+        "postgres": "^3.0.5",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "sequelize": "^6.19.0",
+        "sequelize-cli": "^6.4.1",
+        "web3modal": "^1.9.5"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.2",
+        "eslint": "8.10.0",
+        "eslint-config-next": "12.1.0",
+        "nodemon": "^2.0.15",
+        "postcss": "^8.4.8",
+        "tailwindcss": "^3.0.23"
+    }
+}
